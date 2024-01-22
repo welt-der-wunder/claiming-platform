@@ -1,0 +1,55 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons bx bxs-dashboard",
+      "slug": "dashboard",
+      "roles": ["Super Admin"]
+    },
+    {
+      "url": "/systemusers",
+      "name": "System User",
+      "icon": "menu-icon tf-icons bx bxs-group",
+      "slug": "systemusers.index",
+      "roles": ["Super Admin"]
+    },
+    {
+      "url": "/categories",
+      "name": "Categories",
+      "icon": "menu-icon tf-icons bx bx-dock-top",
+      "slug": "categories.index",
+      "roles": ["Super Admin"]
+    },
+    {
+      "url": "/products",
+      "name": "Products",
+      "icon": "menu-icon tf-icons bx bx-dock-top",
+      "slug": "products.index",
+      "roles": ["Super Admin"]
+    },
+    {
+      "url": "/settings",
+      "name": "Settings",
+      "icon": "menu-icon tf-icons bx bx-cog me-2",
+      "slug": "settings.index",
+      "roles": ["Super Admin"],
+      "submenu": [
+        {
+          "url": "/vats",
+          "name": "Vat",
+          "slug": "vat",
+          "parentSlug": "settings.index",
+          "roles": ["Super Admin"]
+        },
+        {
+          "url": "/branches",
+          "name": "Branch",
+          "slug": "branch",
+          "parentSlug": "settings.index",
+          "roles": ["Super Admin"]
+        }
+      ]
+    }
+  ]
+}

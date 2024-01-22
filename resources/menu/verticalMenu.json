@@ -1,0 +1,18 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons bx bxs-dashboard",
+      "slug": "dashboard",
+      "roles": ["Admin"]
+    },
+    {
+      "url": "/users",
+      "name": "Users",
+      "icon": "menu-icon tf-icons bx bxs-group",
+      "slug": "users",
+      "roles": ["Admin"]
+    }
+  ]
+}
