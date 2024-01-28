@@ -27,7 +27,7 @@
     "maatwebsite/excel": "^3.1",
     "php-open-source-saver/jwt-auth": "^2.1",
     "simplito/elliptic-php": "^1.0",
-    "spatie/laravel-translatable": "*",
+    "spatie/laravel-translatable": "*"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9.1",
