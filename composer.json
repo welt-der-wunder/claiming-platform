@@ -28,7 +28,6 @@
     "php-open-source-saver/jwt-auth": "^2.1",
     "simplito/elliptic-php": "^1.0",
     "spatie/laravel-translatable": "*",
-    "stripe/stripe-php": "^13.7"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9.1",
