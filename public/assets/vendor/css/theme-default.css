@@ -213,22 +213,22 @@ button.list-group-item-primary.active {
   color: #435971;
 }
 .btn-primary {
-  background-color: #a70e07;
-  border-color: #a70e07;
+  background-color: #630e17;
+  border-color: #630e17;
   /* box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4); */
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: #744852;
-  border-color: #744852;
+  background-color: #a70e07;
+  border-color: #a70e07;
   color: #fff;
   transform: translateY(-1px);
 }
 .btn-check:focus + .btn-primary,
 .btn-primary.focus,
 .btn-primary:focus {
-  background-color: #744852;
-  border-color: #744852;
+  background-color: #a70e07;
+  border-color: #a70e07;
   box-shadow: none;
   color: #fff;
   transform: translateY(0);

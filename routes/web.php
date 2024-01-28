@@ -27,5 +27,7 @@ Route::group([
 ], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users', [DashboardController::class, 'getAllUsers'])->name('users');
+    Route::get('/token-holders', [DashboardController::class, 'getAllTokenHolders'])->name('token-holders');
     Route::post('/process-rewards', [DashboardController::class, 'processRewards'])->name('processRewards');
+    Route::post('/create-token-holder', [DashboardController::class, 'createTokenHolder'])->name('create-token-holder');
 });

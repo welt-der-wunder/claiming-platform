@@ -49,6 +49,7 @@ class AdminController extends Controller
                         'holder_address'=> $holder_address,
                         'block_hash'     => $data[0] ?? null,
                         'token_type'     => $fileName,
+                        'created_at'     => now()
                     ];
     
                     $i++;

@@ -46,6 +46,7 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         'image_id',
         'is_verified',
         'public_address',
+        'is_reward'
     ];
 
     /**
@@ -80,7 +81,15 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
     ];
 
     public function scopeFilter(Builder $builder, $filter){
+        if(isset($filter['search'])) {
+            $builder->where('public_address','LIKE','%'. $filter['search'] .'%');
+        }
 
+        if(isset($filter['is_reward'])) {
+            $builder->where('is_reward', $filter['is_reward']);
+        }
+
+        return $builder;
     }
 
     public function image()

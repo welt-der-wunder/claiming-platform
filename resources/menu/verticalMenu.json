@@ -13,6 +13,13 @@
       "icon": "menu-icon tf-icons bx bxs-group",
       "slug": "users",
       "roles": ["Admin"]
+    },
+    {
+      "url": "/token-holders",
+      "name": "Token Holders",
+      "icon": "menu-icon tf-icons bx bxs-coin-stack",
+      "slug": "token-holders",
+      "roles": ["Admin"]
     }
   ]
 }

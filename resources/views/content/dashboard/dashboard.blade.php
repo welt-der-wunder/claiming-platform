@@ -16,44 +16,28 @@
 
 @section('content')
 <div class="row">
-    {{-- <div class="col-md-3 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-title d-flex align-items-start justify-content-between">
-            <div class="avatar flex-shrink-0">
-              <img src="{{asset('assets/img/icons/unicons/cc-primary.png')}}" alt="Credit Card" class="rounded">
-            </div>
-            
-          </div>
-          <span class="fw-semibold d-block mb-1">{{__("Offers Sold")}}</span>
-          <h3 class="card-title mb-2">{{$offersSold ?? 0}}</h3>
-          <!--<small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small>-->
-        </div>
-      </div>
-    </div> --}}
 
-    <div class="col-md-3 mb-4">
+    <div class="col-md-4 mb-4">
         <div class="card">
           <div class="card-body">
             <div class="card-title d-flex align-items-start justify-content-between">
               <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/wallet-info.png')}}" alt="Credit Card" class="rounded">
+                <img src="{{asset('assets/img/icons/unicons/wallet.png')}}" alt="Credit Card" class="rounded">
               </div>
             </div>
-            <span class="fw-semibold d-block mb-1">{{__("Claimed tokens")}}</span>
-            <h3 class="card-title mb-2">{{ ($data && isset($data['claimed_tokens'])) ? $data['claimed_tokens'] : 0}}</h3>
+            <span class="fw-semibold d-block mb-1">{{__("User claimed")}}</span>
+            <h3 class="card-title mb-2">{{ ($data && isset($data['user_claimed'])) ? $data['user_claimed'] : 0}}</h3>
            <!-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.14%</small>-->
           </div>
         </div>
     </div>
-    <div class="col-md-3 mb-4">
+    <div class="col-md-4 mb-4">
       <div class="card">
         <div class="card-body">
           <div class="card-title d-flex align-items-start justify-content-between">
             <div class="avatar flex-shrink-0">
-              <img src="{{asset('assets/img/icons/unicons/chart-success.png')}}" alt="chart success" class="rounded">
+              <img src="{{asset('assets/img/icons/unicons/chart.png')}}" alt="chart success" class="rounded">
             </div>
-           
           </div>
           <span class="fw-semibold d-block mb-1">{{__("Unclaimed tokens")}}</span>
           <h3 class="card-title mb-2">{{ ($data && isset($data['unclaimed_tokens'])) ? $data['unclaimed_tokens'] : 0}}</h3>
@@ -61,36 +45,19 @@
         </div>
       </div>
     </div>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-start justify-content-between">
+            <div class="avatar flex-shrink-0">
+              <img src="{{asset('assets/img/icons/unicons/chart-success.png')}}" alt="chart success" class="rounded">
+            </div>
+          </div>
+          <span class="fw-semibold d-block mb-1">{{__("Claimed tokens")}}</span>
+          <h3 class="card-title mb-2">{{ ($data && isset($data['claimed_tokens'])) ? $data['claimed_tokens'] : 0}}</h3>
+          <!-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small>-->
+        </div>
+      </div>
+    </div>
     
-  
-    {{-- <div class="col-md-3 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-title d-flex align-items-start justify-content-between">
-              <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/cc-warning.png')}}" alt="Credit Card" class="rounded">
-              </div>
-              
-            </div>
-            <span class="d-block mb-1">{{__("Invoiced")}}</span>
-            <h3 class="card-title text-nowrap mb-2">{{$invoiced ?? 0}}</h3>
-            <!-- <small class="text-danger fw-semibold"><i class='bx bx-down-arrow-alt'></i> -14.82%</small>-->
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-title d-flex align-items-start justify-content-between">
-              <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/wallet-info.png')}}" alt="Credit Card" class="rounded">
-              </div>
-            </div>
-            <span class="fw-semibold d-block mb-1">{{__("Total users claimed")}}</span>
-            <h3 class="card-title mb-2">{{$paid ?? 0}}</h3>
-           <!-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.14%</small>-->
-          </div>
-        </div>
-      </div>
-  </div> --}}
 @endsection
