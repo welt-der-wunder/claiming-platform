@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\SysteamUsers\SysUserController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,8 +27,17 @@ Route::group([
     'middleware' => ['auth']
 ], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/users', [DashboardController::class, 'getAllUsers'])->name('users');
+
+    // User / Addresses
+    Route::get('/users', [UserController::class, 'getAllUsers'])->name('users');
+    Route::get('/show-timeline/{id}', [UserController::class, 'showTimeline'])->name('showTimeline');
+    Route::post('/process-multiple-rewards', [UserController::class, 'processMultipleRewards'])->name('processMultipleRewards');
+
+    // Token Holders
     Route::get('/token-holders', [DashboardController::class, 'getAllTokenHolders'])->name('token-holders');
     Route::post('/process-rewards', [DashboardController::class, 'processRewards'])->name('processRewards');
     Route::post('/create-token-holder', [DashboardController::class, 'createTokenHolder'])->name('create-token-holder');
+    Route::post('/holder-status-change', [DashboardController::class, 'holderStatusChange'])->name('holderStatusChange');
+    Route::post('/import-token', [DashboardController::class , 'importTokenHolders'])->name('importHolders');
+
 });

@@ -316,6 +316,8 @@ button {
 }
 button:focus:not(:focus-visible) {
   outline: 0;
+  background-color: #a70e07;
+  box-shadow: #a70e07;
 }
 button,
 input,

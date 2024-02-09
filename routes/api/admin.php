@@ -10,6 +10,6 @@ Route::group([
     'prefix' => 'admin',
 ], function () {
 
-    Route::post('/import-token-holders', [AdminController::class , 'importTokenHolders']);
+    Route::post('/import-token-holders', [AdminController::class , 'importTokenHolders'])->name('importTokenHolders');
 
 });

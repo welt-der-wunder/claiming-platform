@@ -46,7 +46,8 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         'image_id',
         'is_verified',
         'public_address',
-        'is_reward'
+        'is_reward',
+        'reward_status'
     ];
 
     /**
@@ -72,12 +73,14 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         'is_account_complete',
     ];
 
-    const PERSONAL_ACCOUNT = 'personal';
-    const BUSINESS_ACCOUNT = 'business';
+    const REWARD_STATUS_PENDING = 'Pending';
+    const REWARD_STATUS_SENT = 'Sent';
+    const REWARD_STATUS_REJECTED = 'Rejected';
 
-    const ACCOUNT_TYPES = [
-        self::PERSONAL_ACCOUNT,
-        self::BUSINESS_ACCOUNT
+    const REWARD_STATUSES = [
+        self::REWARD_STATUS_PENDING,
+        self::REWARD_STATUS_SENT,
+        self::REWARD_STATUS_REJECTED
     ];
 
     public function scopeFilter(Builder $builder, $filter){
@@ -85,9 +88,11 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
             $builder->where('public_address','LIKE','%'. $filter['search'] .'%');
         }
 
-        if(isset($filter['is_reward'])) {
-            $builder->where('is_reward', $filter['is_reward']);
+        if(isset($filter['reward_status'])) {
+            $builder->where('reward_status', $filter['reward_status']);
         }
+
+        $builder->orderBy('id', 'desc');
 
         return $builder;
     }
@@ -151,5 +156,10 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         array_push($emails, config('app.victorum_admin_email'));
 
         return $emails;
+    }
+
+    public function userLogs() 
+    {
+        return $this->hasMany(UserLog::class);
     }
 }

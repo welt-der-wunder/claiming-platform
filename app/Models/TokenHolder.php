@@ -19,14 +19,25 @@ class TokenHolder extends Model
         'holder_address',
         'block_hash',
         'token_type',
-        'is_claimed'
+        'is_claimed',
+        'status'
+    ];
+
+    const HOLDER_STATUS_CLAIMED = 'Claimed';
+    const HOLDER_STATUS_BLOCKED = 'Blocked';
+    const HOLDER_STATUS_UNCLAIMED = 'Unclaimed';
+
+    const HOLDER_STATUSES = [
+        self::HOLDER_STATUS_CLAIMED,
+        self::HOLDER_STATUS_BLOCKED,
+        self::HOLDER_STATUS_UNCLAIMED
     ];
 
 
     public function scopeFilter(Builder $builder, $filter){
 
-        if(isset($filter['is_claimed'])) {
-            $builder->where('is_claimed', $filter['is_claimed']);
+        if(isset($filter['status'])) {
+            $builder->where('status', $filter['status']);
         }
 
         if(isset($filter['holder_search'])) {
@@ -36,6 +47,8 @@ class TokenHolder extends Model
             });
    
         }
+
+        $builder->orderBy('id', 'desc');
 
         return $builder;
     }

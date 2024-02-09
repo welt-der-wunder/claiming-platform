@@ -155,3 +155,10 @@
   vertical-align: top;
 }
 
+.action-link-c {
+  color: #fff;
+}
+
+.action-link-c:hover {
+  color: #a70e07;
+}

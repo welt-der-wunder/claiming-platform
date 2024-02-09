@@ -10,6 +10,7 @@ use App\Http\Resources\User\UserResource;
 use App\Models\claimedToken;
 use App\Models\TokenHolder;
 use App\Models\User;
+use App\Models\UserLog;
 use Illuminate\Support\Facades\Auth;
 use Elliptic\EC;
 use Illuminate\Support\Facades\DB;
@@ -128,51 +129,6 @@ class WalletController extends Controller
         return Str::lower($address) === $derived_address;
     }
 
-    // public function claim() 
-    // {
-    //     $user = auth()->user();
-
-    //     if($user && $user->public_address) {
-
-    //         $claimedToken = ClaimedToken::where('user_id', $user->id)
-    //                                     ->exists();
-
-    //         if($claimedToken) {
-    //             return response()->json([
-    //                 'success' => false,
-    //                 'error'   => 'You are not eligible to receive the Airdrop. Please connect another wallet!',
-    //             ], 401);
-    //         }
-
-    //         $tokenHolder = TokenHolder::where(function($query) use($user) {
-    //                                         $query->where('from', $user->public_address);
-    //                                         $query->orWhere('holder_address', $user->public_address);
-    //                                   })
-    //                                   ->where('is_claimed', false)
-    //                                   ->first();
-
-    //         if($tokenHolder) {
-
-    //             ClaimedToken::create([
-    //                 'user_id'        => $user->id,
-    //                 'token_holder_id' => $tokenHolder->id
-    //             ]);
-
-    //             $tokenHolder->update(['is_claimed' => true]);
-
-    //             return response()->json([
-    //                 'success' => true,
-    //                 'message'   => 'Congrats! You are eligible to receive the Airdrop. Your case will be double-checked by the Team. The Tokens will soon be sent out in multiple batches. The transactions will be announced officially.',
-    //             ], 200);
-    //         }
-    //     }
-
-    //     return response()->json([
-    //         'success' => false,
-    //         'error'   => 'You are not eligible to receive the Airdrop. Please connect another wallet!',
-    //     ], 401);
-    // }
-
     public function publicClaim(Request $request)
     {
         $public_address = $request->get('public_address');
@@ -183,7 +139,7 @@ class WalletController extends Controller
                 $query->where('from', $public_address);
                 $query->orWhere('holder_address', $public_address);
             })
-                ->where('is_claimed', false)
+                ->where('status', TokenHolder::HOLDER_STATUS_UNCLAIMED)
                 ->count();
 
             if ($tokenHolder > 0) {
@@ -192,14 +148,19 @@ class WalletController extends Controller
                     $query->where('from', $public_address);
                     $query->orWhere('holder_address', $public_address);
                 })
-                    ->where('is_claimed', false)
-                    ->update(['is_claimed' => true]);
+                    ->where('status', TokenHolder::HOLDER_STATUS_UNCLAIMED)
+                    ->update(['status' => TokenHolder::HOLDER_STATUS_CLAIMED]);
 
-                if (!User::where('public_address', $public_address)->exists()) {
+                $user = User::where('public_address', $public_address)->first();
+                if (!$user) {
                     // save user in the database 
-                    User::create([
+                    $user = User::create([
                         'public_address' => $public_address,
                     ]);
+                }
+
+                if($user && $tokenHolder) {
+                    UserLog::createLog([$user], 'User has claimed the reward');
                 }
 
                 return response()->json([
@@ -225,7 +186,7 @@ class WalletController extends Controller
                 $query->where('from', $public_address);
                 $query->orWhere('holder_address', $public_address);
             })
-                ->where('is_claimed', false)
+                ->where('status', TokenHolder::HOLDER_STATUS_UNCLAIMED)
                 ->count();
 
             if ($tokenHolder > 0) {

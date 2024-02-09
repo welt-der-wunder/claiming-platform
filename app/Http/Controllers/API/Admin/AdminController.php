@@ -17,6 +17,7 @@ class AdminController extends Controller
 {
     public function importTokenHolders(Request $request)
     {
+        dd('in');
         ini_set('memory_limit', '512M');
         $file = $request->file('excel_file');
 
@@ -61,6 +62,11 @@ class AdminController extends Controller
         $allData = null;
         if($tokenHolders && count($tokenHolders) > 0) {
             $allData = TokenHolder::insert($tokenHolders);
+        }
+
+        $location = $request->get('location');
+        if($location == 'admin-panel') {
+            return redirect()->back()->with('success','Data imported successfully');
         }
 
         return response()->json(['message' => 'Data imported successfully', 'data' => $allData, "imported" => $i]);

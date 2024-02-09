@@ -9,7 +9,7 @@
     },
     {
       "url": "/users",
-      "name": "Users",
+      "name": "Claimed Users",
       "icon": "menu-icon tf-icons bx bxs-group",
       "slug": "users",
       "roles": ["Admin"]
