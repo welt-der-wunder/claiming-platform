@@ -99,7 +99,7 @@
             <input onchange="updateButtons()" class="form-check-input w-10 h-10" name="holder_ids[]" type="checkbox" value="{{$tokenHolder->id}}">
           </td>
           <td>{{$tokenHolder->id}}</td>
-          <td>{{ $tokenHolder->holder_address ?? $tokenHolder->from}}</td>
+          <td><a style="color:#fff" href="https://bscscan.com/address/{{ $tokenHolder->holder_address ?? $tokenHolder->from}}" target="_blank">{{ $tokenHolder->holder_address ?? $tokenHolder->from}}</a></td>
           <td>{{$tokenHolder->created_at ?? '/'}}</td>
           <td align="center">   
              {{ $tokenHolder->status }}
