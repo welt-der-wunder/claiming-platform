@@ -25,6 +25,14 @@
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
+  <form action="{{ route('exportData') }}" method="post">
+    @csrf
+    <div class="mx-3 text-end my-3">
+      <input type="hidden" name="url_params" value="<?php if(isset($_SERVER['QUERY_STRING'])) echo $_SERVER['QUERY_STRING']; ?>" />
+      <button type="submit" name="export" value="1" class="btn btn-primary m-1 fade show" id="exportBtn"
+        onclick="return exportData();">{{__('Export')}}</button>
+    </div>
+  </form>
   <form action="{{ route('users') }}" method="GET">
     @csrf
     <div class="row m-2 my-3 justify-content-between">
@@ -93,10 +101,10 @@
             <td>{{$user->id}}</td>
             <td><a style="color:#fff" href="https://bscscan.com/address/{{ $user->public_address }}"
                 target="_blank">{{$user->public_address}}</a>
-              | 
+              |
               <a style="font-size: 11px; color:#fff"
                 href="https://bscscan.com/token/0x4518231a8fdf6ac553b9bbd51bbb86825b583263?a={{ $user->public_address }}"
-                target="_blank">OLD</a> | 
+                target="_blank">OLD</a> |
               <a style="font-size: 11px; color:#fff"
                 href="https://bscscan.com/token/0xf45611c32967cf1ce185f221725037b86d1cc337?a={{ $user->public_address }}"
                 target="_blank">ACTIVE</a>
@@ -183,7 +191,22 @@
       var confirmation = window.confirm("Are you sure you want to proceed?");
       if (confirmation) {
           // Proceed with form submission
-          document.forms[1].submit();  // Assuming the form is the second form on the page, adjust if necessary
+          document.forms[2].submit();  // Assuming the form is the second form on the page, adjust if necessary
+      } else {
+          // User canceled the action
+          return false;
+      }
+  }
+  function exportData() {
+      const queryString = window.location.search;
+console.log(queryString);
+
+      var atLeastOneChecked = false
+  
+      var confirmation = window.confirm("Are you sure you want to export?");
+      if (confirmation) {
+          // Proceed with form submission
+          document.forms[0].submit();  // Assuming the form is the second form on the page, adjust if necessary
       } else {
           // User canceled the action
           return false;

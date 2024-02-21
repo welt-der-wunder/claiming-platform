@@ -32,6 +32,7 @@ Route::group([
     Route::get('/users', [UserController::class, 'getAllUsers'])->name('users');
     Route::get('/show-timeline/{id}', [UserController::class, 'showTimeline'])->name('showTimeline');
     Route::post('/process-multiple-rewards', [UserController::class, 'processMultipleRewards'])->name('processMultipleRewards');
+    Route::post('/export-data', [UserController::class, 'exportData'])->name('exportData');
 
     // Token Holders
     Route::get('/token-holders', [DashboardController::class, 'getAllTokenHolders'])->name('token-holders');

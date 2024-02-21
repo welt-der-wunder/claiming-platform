@@ -73,6 +73,8 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
         'is_account_complete',
     ];
 
+    const PERSONAL_ACCOUNT = 'Personal';
+
     const REWARD_STATUS_PENDING = 'Pending';
     const REWARD_STATUS_SENT = 'Sent';
     const REWARD_STATUS_REJECTED = 'Rejected';
