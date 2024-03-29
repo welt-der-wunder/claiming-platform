@@ -34,6 +34,8 @@ Route::group([
     Route::post('/process-multiple-rewards', [UserController::class, 'processMultipleRewards'])->name('processMultipleRewards');
     Route::post('/export-data', [UserController::class, 'exportData'])->name('exportData');
 
+    Route::post('/import-data', [UserController::class , 'importData'])->name('importData');
+
     // Token Holders
     Route::get('/token-holders', [DashboardController::class, 'getAllTokenHolders'])->name('token-holders');
     Route::post('/process-rewards', [DashboardController::class, 'processRewards'])->name('processRewards');

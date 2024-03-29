@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 
+use Carbon\Carbon;
+
 class UserController extends Controller
 {
   public function getAllUsers(Request $request)
@@ -54,6 +56,56 @@ class UserController extends Controller
     return Excel::download(new UsersExport($users), $csvFileName);
   }
 
+  public function importData(Request $request)
+  {
+    ini_set('memory_limit', '512M');
+    $file = $request->file('excel_file');
+
+    // Get the original file name
+    $fileName = $file->getClientOriginalName();
+    $importFileData = Excel::toArray([], $file);
+
+    $tokenHolders = [];
+
+    $i = 0;
+
+    if (isset($importFileData[0]) && count($importFileData[0]) > 0) {
+      foreach ($importFileData[0] as $data) {
+        if (isset($data[0]) && strpos($data[0], '0x') === 0) {
+
+          $from = null;
+          $amount = null;
+
+          $aryFailed = array();
+          if (isset($data[0]) && isset($data[1])) {
+            $from = $data[0];
+            $amount = $data[1];
+            $reward_status = User::REWARD_STATUS_SENT;
+            $user = User::where('public_address', $from)->where('reward_status', User::REWARD_STATUS_PENDING)->first();
+
+
+            if ($user) {
+              $user->reward_status = $reward_status;
+              $user->amount_note = $amount;
+              $user->save();
+
+              UserLog::createLog([$user], "<b>" . auth()->user()->email . "</b> has changed status to <b>" . $reward_status . ". Amount: ".$amount."</b>");
+            } else {
+              $aryFailed[] = $user;
+            }
+          }
+          $i++;
+        }
+        continue;
+      }
+    }
+
+    if ($aryFailed && count($aryFailed) > 0) {
+      return redirect()->back()->with('error', 'Failed records: ' . count($aryFailed));
+    }
+
+    return redirect()->back()->with('success', 'Data imported successfully');
+  }
 
   public function processMultipleRewards(Request $request)
   {
